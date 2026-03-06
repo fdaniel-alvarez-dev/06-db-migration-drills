@@ -1,0 +1,6 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - apps/automation-sentinel/namespace.yaml
+  - apps/automation-sentinel/deployment.yaml
+  - apps/automation-sentinel/networkpolicy.yaml

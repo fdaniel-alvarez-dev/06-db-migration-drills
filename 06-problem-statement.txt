@@ -1,0 +1,32 @@
+06 - Problem Statement (Repository Validation Contract)
+
+Purpose
+This document defines the business context, technical requirements, and evaluation criteria that this repository is expected to satisfy.
+It is intentionally company- and role-agnostic.
+
+Business context (generic)
+- A company operates internal automation workflows that connect APIs, databases, and business processes.
+- Manual work is error-prone and does not scale; reliability and visibility are required.
+- Kubernetes is the standard runtime, and PostgreSQL is a critical dependency.
+
+Technical requirements (what must be true)
+1) Kubernetes-first delivery surface (reviewable and validate-able)
+   - The repository contains a minimal, reviewable Kubernetes manifest set under `k8s/`.
+   - A local validation command exists to catch unsafe defaults (least privilege markers, network policy).
+
+2) Safe, repeatable migrations
+   - A concrete migration system exists (not TODOs).
+   - Migrations support an **expand/contract** workflow and include explicit preconditions.
+   - There is an operational rollback path (even if “demo-only”).
+
+3) Testability and operational evidence
+   - Tests have two explicit modes:
+     - demo: mocks/fakes only (no Docker, no external calls)
+     - production: real integrations when correctly configured and explicitly acknowledged
+   - If production prerequisites are missing, the runner prints exactly what is missing and how to re-run.
+
+Top 3 pain points this repository must solve
+1) “Automation workflows break because runtime defaults aren’t hardened.”
+2) “Schema changes are risky and rollback is undefined.”
+3) “Operational procedures aren’t executable or verifiable.”
+
